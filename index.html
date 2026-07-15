@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Spotify - Web Player: Music for everyone</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="utility.css">
 </head>
@@ -24,6 +24,12 @@
                     <h2>Your Library</h2>
                 </div>
 
+                <div class="songList">
+                    <ul>
+                        
+                    </ul>
+                </div>
+
                 <div class="footer">
                     <div><a href="https://www.spotify.com/jp/legal/"><span>Legal</span></a></div>
                     <div><a href="https://www.spotify.com/jp/privacy/"><span>Privacy Center</span></a></div>
@@ -40,17 +46,18 @@
         <div class="right bg-grey rounded">
             <div class="header">
                 <div class="nav">
+                    <!-- left arrow -->
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" color="#ffffff" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M15 6C15 6 9.00001 10.4189 9 12C8.99999 13.5812 15 18 15 18"></path>
                     </svg>
-
+                    <!-- right arrow  -->
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" color="#ffffff" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M9.00005 6C9.00005 6 15 10.4189 15 12C15 13.5812 9 18 9 18"></path>
                     </svg>
                 </div>
                 <div class="buttons">
-                    <button>SignUp</button>
-                    <button>Login</button>
+                    <button class="signupbtn">Sign Up</button>
+                    <button class="loginbtn">Login</button>
                 </div>
             </div>
             <div class="spotifyPlaylists">
@@ -74,9 +81,40 @@
                     </div>
 
                     <div class="card">
+                        <div class="play">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="50"
+                                height="50"
+                                viewBox="0 0 24 24"
+                                style="display:block;">
+                                <circle cx="12" cy="12" r="11" fill="#1DB954"/>
+                                <path d="M9.5 7.8L17 12L9.5 16.2V7.8Z" fill="#000"/>
+                            </svg>
+                        </div>
                         <img src="https://i.scdn.co/image/ab67706f0000000249a1ed33d2ca64e6a5d0e550" alt="">
                         <h2>Happy hits!</h2>
                         <p>Hits to boost your mood and fill your happiness</p>
+                    </div>
+                </div>
+                <div class="playbar">
+                    <div class="seekbar">
+                        <div class="circle">
+
+                        </div>
+                    </div>
+                    <div class="abovebar">
+                        <div class="songinfo">
+
+                        </div>
+                        <div class="songbuttons">
+                            <img id="previous" src="prevsong.svg" alt="">
+                            <img id="play" src="play.svg" alt="">
+                            <img id="next" src="nextsong.svg" alt="">
+                        </div>
+                        <div class="songtime">
+
+                        </div>
                     </div>
                 </div>
             </div>

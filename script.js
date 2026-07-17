@@ -1,6 +1,23 @@
 console.log('Lets write Javascript')
 let currentSong = new Audio();
 
+function formatTime(seconds) {
+    // Handle invalid input
+    if (isNaN(seconds) || seconds < 0) {
+        return "00:00";
+    }
+
+    // Calculate minutes and remaining seconds
+    let mins = Math.floor(seconds / 60);
+    let secs = Math.floor(seconds % 60);
+
+    // Add leading zeros if needed
+    mins = String(mins).padStart(2, "0");
+    secs = String(secs).padStart(2, "0");
+
+    return `${mins}:${secs}`;
+}
+
 async function getSongs(){
     // Send a request to the server asking for the contents
     // of the /songs/ folder.
@@ -29,14 +46,17 @@ async function getSongs(){
 }
 
 //function to play the selected song (track is the filename of the song)
-const playMusic = (track) => {
+const playMusic = (track, pause=false) => {
     // Set the audio source (path to the selected song).
     // If track = "Believer.mp3"
     // currentSong.src becomes "/songs/Believer.mp3"
     currentSong.src = "/songs/" + track
-    currentSong.play();
-    play.src = "pause.svg" // Change the play button icon to the pause icon because the song is now playing.
-    document.querySelector(".songinfo").innerHTML = track //Update the current playbar UI to display the current song
+    if(!pause){
+        currentSong.play();
+        play.src = "pause.svg" // Change the play button icon to the pause icon because the song is now playing.
+    }
+
+    document.querySelector(".songinfo").innerHTML = decodeURI(track) //Update the current playbar UI to display the current song
     document.querySelector(".songtime").innerHTML = "00:00 / 00:00" //Displays time elapsed
 }
 
@@ -53,6 +73,7 @@ const playMusic = (track) => {
 async function main(){
     //get the list of all the songs from server
     let songs = await getSongs()
+    playMusic(songs[0], true)
 
     //Show all the songs in the playlist
     // Find the <ul> inside the songList div.
@@ -79,8 +100,7 @@ async function main(){
 
     //Attach an event listener to each song
     // Get all the <li> elements (songs) from the playlist.
-    // HTMLCollection is converted into an Array so that we can
-    // use the forEach() method.
+    // HTMLCollection is converted into an Array so that we can use the forEach() method.
     Array.from(document.querySelector(".songList").getElementsByTagName("li")).forEach(e=>{
         e.addEventListener("click", element=>{
             // Get the song name from the first <div> inside the ".info" section.
@@ -104,6 +124,20 @@ async function main(){
             //change pause button to play
             play.src = "play.svg"
         }
+    })
+
+    //Listen for timeupdate event
+    currentSong.addEventListener("timeupdate",()=>{
+        console.log(currentSong.currentTime, currentSong.duration);
+        document.querySelector(".songtime").innerHTML = `${formatTime(currentSong.currentTime)}/${formatTime(currentSong.duration)}`
+        document.querySelector(".circle").style.left = (currentSong.currentTime/ currentSong.duration) * 100 + "%"
+    })
+
+    //Add an event listener to seekbar
+    document.querySelector(".seekbar").addEventListener("click", e=>{
+        let percent = (e.offsetX/e.target.getBoundingClientRect().width) * 100
+        document.querySelector(".circle").style.left = percent + "%";
+        currentSong.currentTime = ((currentSong.duration) * percent)/100;
     })
 }
 

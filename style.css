@@ -97,6 +97,10 @@ body{
     padding: 16px;
 }
 
+.spotifyPlaylists h1{
+    padding: 16 px;
+}
+
 .cardContainer{
     margin: 30px;
     display: flex;
@@ -221,6 +225,10 @@ body{
 .songList .info{
     font-size: 13px;
     width: 344px;
+}
+
+.info div{
+    word-break: break-all;
 }
 
 .playnow{

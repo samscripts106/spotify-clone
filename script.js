@@ -1,5 +1,6 @@
 console.log('Lets write Javascript')
 let currentSong = new Audio();
+let songs;
 
 function formatTime(seconds) {
     // Handle invalid input
@@ -72,7 +73,7 @@ const playMusic = (track, pause=false) => {
 
 async function main(){
     //get the list of all the songs from server
-    let songs = await getSongs()
+    songs = await getSongs()
     playMusic(songs[0], true)
 
     //Show all the songs in the playlist
@@ -145,15 +146,37 @@ async function main(){
         document.querySelector(".left").style.left = "0";
     })
 
-    console.log(document.querySelector(".close"));
     //Add an event listener for close button
-    // document.querySelector(".close").addEventListener("click", ()=>{
-    //     document.querySelector(".left").style.left = "-130%";
-    // })
+    document.querySelector(".close").addEventListener("click", ()=>{
+        document.querySelector(".left").style.left = "-130%";
+    })
 
-    document.querySelector(".close").addEventListener("click", () => {
-    console.log("Close clicked");
-    document.querySelector(".left").style.left = "-130%";
+    //Add event listener to prev 
+    previous.addEventListener("click", ()=>{
+        console.log("Previous clicked")
+
+        let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0])
+
+        console.log(songs, index)
+        if((index-1)>=0){
+            playMusic(songs[index-1])
+        } else {
+            playMusic(songs[songs.length-1])
+        }
+    })
+
+     //Add event listener to next
+    next.addEventListener("click", ()=>{
+        console.log("Next clicked")
+        
+        let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0])
+
+        console.log(songs, index)
+        if((index+1)<songs.length){
+            playMusic(songs[index+1])
+        }else {
+            playMusic(songs[0])
+        }
     })
 }
 

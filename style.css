@@ -4,6 +4,10 @@
     font-family: "Spotify Mix", sans-serif;
 }
 
+:root{
+    --a:0;
+}
+
 @font-face {
     font-family: "Spotify Mix";
     src: url("./Spotify Mix UI/spotify_mix.ttf") format("truetype");
@@ -118,6 +122,12 @@ body{
     position: relative;
 }
 
+.card:hover{
+    background-color: rgb(77, 76, 76);
+    cursor: pointer;
+    --a: 1;
+}
+
 .card > *{
     padding-top: 10px;
 }
@@ -131,9 +141,11 @@ body{
     position: absolute;
     top: 155px;
     right: 19px;
-    opacity: 0;
+    opacity: var(--a);
     transition: all 1s ease-out;
 }
+
+
 
 .buttons{
     display: flex;
@@ -270,9 +282,34 @@ body{
     cursor: pointer;
 }
 
-.songinfo, .songtime{
+.timevol{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.songinfo{
     color: black;
     padding: 0 12px;
+    width: 250px;
+}
+
+.songtime{
+    color: black;
+    padding: 0 12px;
+    width: 125px;
+}
+
+.volume{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+}
+
+.volume input{
+    cursor: pointer;
 }
 
 .abovebar{
@@ -291,7 +328,7 @@ body{
     z-index: 9999;
 }
 
-@media (max-width: 1400px){
+@media (max-width: 1200px){
     .left{
         background-color: black;
         position: absolute;
@@ -316,6 +353,7 @@ body{
 
     .playbar{
         width: 88vw;
+        bottom: 10px;
     }
 
     .seekbar{
@@ -327,7 +365,7 @@ body{
     }
 
     .card{
-        width: 90vw;
+        width: 44vw;
     }
 
     .cardContainer{
@@ -339,5 +377,20 @@ body{
         flex-direction: column;
         gap: 13px;
         align-items: center;
+    }
+
+    .timevol{
+        flex-direction: column;
+    }
+
+    .songinfo{
+        display: flex;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 400px){
+    .card{
+        width: 64vw;
     }
 }
